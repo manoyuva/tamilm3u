@@ -24,7 +24,7 @@ jobs:
 
       - name: Run fetch and build
         run: |
-          python scripts/fetch_and_build_sports.py
+          python scripts/tamilottm3u.py
 
       - name: Commit changes
         run: |
