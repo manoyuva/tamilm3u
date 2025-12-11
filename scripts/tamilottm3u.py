@@ -1,7 +1,7 @@
 import json
 import sys
 
-def convert_json_to_m3u(data/tamilott.json, data/playlists/tamilott.m3u):
+def convert_json_to_m3u(json_file_path, m3u_file_path):
     """
     Converts a JSON playlist file to an M3U playlist file.
 
@@ -49,9 +49,10 @@ def convert_json_to_m3u(data/tamilott.json, data/playlists/tamilott.m3u):
 
 # Example usage:
 # Define your input JSON file path and output M3U file path
-input_json = 'my_playlist.json'
-output_m3u = 'my_playlist.m3u'
+input_json = 'data/tamilott.json'
+output_m3u = 'data/playlists/my_playlist.m3u'
 
 # Run the conversion function
 if __name__ == "__main__":
     convert_json_to_m3u(input_json, output_m3u)
+    
