@@ -10,7 +10,7 @@ fetch_and_build_sports.py
 import re, requests, time, json, os
 from typing import List, Dict
 
-SRC_URL = "https://iptv-org.github.io/iptv/countries/bd.m3u"
+SRC_URL = "http://sscloud7.in/multi/tamilott.json"
 OUT_JSON = "data/sports_channels.json"
 OUT_M3U = "data/playlists/sports_playlists.m3u"
 TIMEOUT = 10  # seconds for HTTP checks
