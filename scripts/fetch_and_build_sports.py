@@ -11,8 +11,8 @@ import re, requests, time, json, os
 from typing import List, Dict
 
 SRC_URL = "http://sscloud7.in/multi/tamilott.json"
-OUT_JSON = "data/sports_channels.json"
-OUT_M3U = "data/playlists/sports_playlists.m3u"
+OUT_JSON = "data/tamilott.json"
+OUT_M3U = "data/playlists/tamilott.m3u"
 TIMEOUT = 10  # seconds for HTTP checks
 USER_AGENT = "Mozilla/5.0 (compatible; PlaylistBot/1.0)"
 
@@ -63,9 +63,9 @@ def parse_m3u(text: str) -> List[Dict]:
             entries.append({
                 "extinf_raw": extinf_raw,
                 "attrs": attrs,
-                "title": title,
+                "channelname": title,
                 "extra_lines": extra_lines,
-                "url": url
+                "playbackurl": url
             })
         else:
             i += 1
@@ -114,11 +114,11 @@ def build_json_and_m3u(entries: List[Dict], out_json: str, out_m3u: str):
         m3f.write("#EXTM3U\n")
         for e in entries:
             item = {
-                "channel_id": e["attrs"].get("tvg-id") or e["title"],
+                "channel_id": e["attrs"].get("tvg-id") or e["channelname"],
                 "name": e["title"],
                 "tvg-logo": e["attrs"].get("tvg-logo"),
                 "group-title": e["attrs"].get("group-title"),
-                "stream": e["url"],
+                "stream": e["playbackurl"],
                 "extra_lines": e["extra_lines"],
                 "fetched_at": int(time.time()),
                 "alive": None,
