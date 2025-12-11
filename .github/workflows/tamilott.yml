@@ -1,8 +1,8 @@
-name: Automated Fancode JSON Updater
+name: Automated Tamilott JSON Updater
 
 on:
   schedule:
-    - cron: '*/7 * * * *' 
+    - cron: '0 0 * * *' 
   workflow_dispatch:
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
 
       - name: Download JSON
         run: |
-          curl -sS -o fancode.json "https://raw.githubusercontent.com/drmlive/fancode-live-events/refs/heads/main/fancode.json"
+          curl -sS -o data/tamilott.json "http://sscloud7.in/multi/tamilott.json"
 
       - name: Configure Git User
         run: |
@@ -37,7 +37,7 @@ jobs:
       - name: Commit and Push
         if: steps.git_status.outputs.has_changes == 'true'
         run: |
-          git add fancode.json
-          git commit -m "Fancode Letest Update Now Live ✅"
+          git add data/tamilott.json
+          git commit -m "😍Tamil Ott ✅"
           git push
           
