@@ -23,9 +23,9 @@ def convert_json_to_m3u(json_file_path, m3u_file_path):
         # 2. Format the data into M3U lines
         m3u_lines = ["#EXTM3U"] # M3U header
         for track in data:
-            title = track.get("title", "Unknown Title")
-            runtime = track.get("runtime", -1) # Use -1 if runtime is missing
-            path = track.get("path", "")
+            title = track.get("channelname", "Unknown Title")
+            runtime = track.get("logo", -1) # Use -1 if runtime is missing
+            path = track.get("playbackurl", "")
 
             if path:
                 # M3U extended format line: #EXTINF:<runtime>,<display_title>
