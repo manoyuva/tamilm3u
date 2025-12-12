@@ -32,9 +32,9 @@ jobs:
         python3 download_json.py
 
     # 5. Convert JSON → M3U
-   # - name: Convert JSON to M3U
-     # run: |
-     #   python3 json_to_m3u.py
+    - name: Convert JSON to M3U
+     run: |
+       python3 json_to_m3u.py
 
     # 6. Commit & Push result
     - name: Commit & push playlist
