@@ -1,28 +1,47 @@
-name: Run Python Script
+name: JSON → M3U Auto Convert
+
 on:
-  schedule:
-    - cron: '0 0 * * *' #Tamilott daily Json Generator
   workflow_dispatch:
-  push:
-    branches:
-      - main # or your default branch name
+  schedule:
+    - cron: "0 */6 * * *"   # runs every 6 hours (you can change it)
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Specifies the runner environment
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4 # Action to access your code
 
-    - name: Set up Python
-      uses: actions/setup-python@v5 # Action to install Python
+    # 1. Checkout repository
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    # 2. Set up Python
+    - name: Setup Python
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.10' # Specify the desired Python version
+        python-version: "3.11"
 
-    - name: Install dependencies (if any)
-      run: pip install -r requirements.txt # Installs packages from requirements.txt
+    # 3. Install dependencies
+    - name: Install dependencies
+      run: |
+        pip install requests
 
-    - name: Execute Python script
-      run: python test.py # Runs your Python script
-      
+    # 4. Download JSON
+    - name: Download JSON file
+      run: |
+        python3 download_json.py
+
+    # 5. Convert JSON → M3U
+    - name: Convert JSON to M3U
+      run: |
+        python3 json_to_m3u.py
+
+    # 6. Commit & Push result
+    - name: Commit & push playlist
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add playlist.m3u
+        git commit -m "Updated M3U playlist automatically"
+        git push
+        
