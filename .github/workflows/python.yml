@@ -1,18 +1,26 @@
 name: Run Python Script
 
-on: [push]
+on:
+  push:
+    branches:
+      - main # or your default branch name
 
 jobs:
-  build-and-run:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest # Specifies the runner environment
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Action to access your code
+
+    - name: Set up Python
+      uses: actions/setup-python@v5 # Action to install Python
       with:
-        python-version: '3.10'
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Run script
-      run: python test.py
+        python-version: '3.10' # Specify the desired Python version
+
+    - name: Install dependencies (if any)
+      run: pip install -r requirements.txt # Installs packages from requirements.txt
+
+    - name: Execute Python script
+      run: python test.py # Runs your Python script
       
