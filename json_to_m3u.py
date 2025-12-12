@@ -1,22 +1,32 @@
 import json
 
-def json_to_m3u(json_file, m3u_file="playlist.m3u"):
+def json_to_m3u(json_file="channels.json", m3u_file="tamilott.m3u"):
     with open(json_file, "r", encoding="utf-8") as f:
         data = json.load(f)
+
+    channels = data.get("channels", [])
 
     with open(m3u_file, "w", encoding="utf-8") as m3u:
         m3u.write("#EXTM3U\n")
 
-        for item in data:
-            name = item.get("display_name") or item.get("name") or "Unknown"
-            url = item.get("url", "")
-            logo = item.get("logo", "")
+        for ch in channels:
+            name = ch.get("name", "Unknown")
+            logo = ch.get("logo", "")
+            url = ch.get("url", "")
 
-            if url:
-                m3u.write(f'#EXTINF:-1 tvg-logo="{logo}",{name}\n')
-                m3u.write(url + "\n")
+            if not url:
+                continue  # skip channels without stream URL
 
-    print(f"✔ M3U created: {m3u_file}")
+            m3u.write(
+                f'#EXTINF:-1 tvg-name="{name}" tvg-logo="{logo}" group-title="India",{name}\n'
+            )
+            m3u.write(url + "\n")
+
+    print(f"✔ M3U file created: {m3u_file}")
 
 
-json_to_m3u("channels.json", "playlist.m3u")
+# ------------------------------
+# Example usage
+# ------------------------------
+if __name__ == "__main__":
+    json_to_m3u("channels.json", "channels.m3u")
