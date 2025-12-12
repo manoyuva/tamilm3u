@@ -1,53 +1,72 @@
 import json
-import argparse
-import os
 
-def json_to_m3u(json_data, output_file):
+
+def json_to_m3u(input_file, output_file="playlist.m3u"):
     """
-    Converte una lista JSON di canali IPTV in un file M3U.
+    Converts JSON IPTV data to an M3U playlist file and extracts EPG sources.
 
-    :param json_data: Lista JSON contenente i dati dei canali.
-    :param output_file: Nome del file M3U di output.
+    Args:
+        input_file (str): Path to the JSON file containing channel data.
+        output_file (str): Name of the M3U file to be created.
     """
-    with open(output_file, 'w', encoding='utf-8') as m3u_file:
-        # Scrivi l'intestazione del file M3U
-        m3u_file.write("#EXTM3U\n")
-        
-        # Itera attraverso ogni canale nel JSON
-        for channel in json_data:
-            # Estrai le informazioni del canale
-            group = channel.get("channeldata","area", "")
-            name = channel.get("channeldata""channelname", "")
-            logo = channel.get("channeldata","logo", "")
-            tvg_id = channel.get("tvg_id", "")
-            url = channel.get("playbackurl", "")
-            
-            # Scrivi le informazioni del canale nel file M3U
-            m3u_file.write(f'#EXTINF:-1 group-title="{group}" tvg-id="{tvg_id}" tvg-logo="{logo}",{name}\n')
-            m3u_file.write(f'{url}\n')
+    try:
+        # Read JSON data from the file
+        with open(input_file, "r", encoding="utf-8") as file:
+            data = json.load(file)
 
-def main():
-    # Configura il parser degli argomenti
-    parser = argparse.ArgumentParser(description="Converti un file JSON di canali IPTV in un file M3U.")
-    parser.add_argument("input_file", help="Percorso del file JSON di input")
-    args = parser.parse_args()
+        # Extract channels data
+        channels = data.get("js", {}).get("channeldata", [])
+        epg_sources = set()
 
-    # Verifica che il file di input esista
-    if not os.path.exists(args.input_file):
-        print(f"Errore: Il file {args.input_file} non esiste.")
-        return
+        # Start writing the M3U file
+        with open(output_file, "w", encoding="utf-8") as m3u_file:
+            m3u_file.write("#EXTM3U\n")
 
-    # Carica il file JSON
-    with open(args.input_file, 'r', encoding='utf-8') as json_file:
-        json_data = json.load(data/tamilott.m3u)
+            for channel in channels:
+                # Extract relevant data
+                name = channel.get("channelname", "Unknown")
+                tvg_id = channel.get("Id", "")
+                group_title = channel.get("area", "Undefined")
+                logo = channel.get("logo", "")
+               ## url = channel.get("cmds", [{}])[0].get("url", "")
+                url = channel.get("playbackurl", "")
+                epg_data = channel.get("Id", [])
 
-    # Genera il nome del file di output
-    base_name = os.path.splitext(args.input_file)[0]  # Rimuove l'estensione .json
-    output_file = f"{base_name}.m3u"
+                # Collect EPG sources
+                for epg in epg_data:
+                    epg_url = epg.get("url", "")
+                    if epg_url:
+                        epg_sources.add(epg_url)
 
-    # Converti il JSON in M3U e salva il file
-    json_to_m3u(json_data, output_file)
-    print(f"File M3U generato con successo: {output_file}")
+                # Skip if no stream URL is found
+                if not url:
+                    continue
+
+                # Write EXTINF line
+                extinf_line = (
+                    f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{name}" '
+                    f'group-title="{group_title}" tvg-logo="{logo}",{name}\n'
+                )
+                m3u_file.write(extinf_line)
+
+                # Write URL line
+                m3u_file.write(f"{url}\n")
+
+        # Save EPG sources to a separate file
+        if epg_sources:
+            with open("epg_sources.txt", "w", encoding="utf-8") as epg_file:
+                epg_file.write("\n".join(epg_sources))
+            print("EPG sources saved to epg_sources.txt")
+
+        print(f"M3U playlist saved to {output_file}")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
 
 if __name__ == "__main__":
-    main()
+    # Path to the input JSON file
+    input_file = "data/tamilott.json"
+
+    # Generate the M3U playlist and EPG sources
+    json_to_m3u(input_file, "tata_playlist_with_epg.m3u")
