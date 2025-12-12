@@ -1,7 +1,7 @@
 import json
 import sys
 
-def convert_json_to_m3u(json_file_path, m3u_file_path):
+def convert_json_to_m3u(json_file_path ='playlist.json', m3u_file_path = 'playlist.m3u'):
     """
     Converts a JSON playlist file to an M3U playlist file.
 
