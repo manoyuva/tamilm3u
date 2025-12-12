@@ -1,12 +1,16 @@
 [
     {
-        "title": "Example artist - Example title",
-        "duration": 105,
-        "url": "C:\\Files\\My Music\\Example.mp3"
+        "name": "Channel 1",
+        "url": "http://example.com/stream1",
+        "tvg_id": "ch1",
+        "tvg_logo": "http://example.com/logo1.png",
+        "group": "News"
     },
     {
-        "title": "Example Artist2 - Example title2",
-        "duration": 321,
-        "url": "C:\\Files\\My Music\\Favorites\\Example2.ogg"
+        "name": "Channel 2",
+        "url": "http://example.com/stream2",
+        "tvg_id": "ch2",
+        "tvg_logo": "http://example.com/logo2.png",
+        "group": "Sports"
     }
 ]
