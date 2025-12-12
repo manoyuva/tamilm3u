@@ -10,7 +10,7 @@ input_urls = [
 ]
 
 # ✅ Output M3U file
-output_file = "playlist.m3u"
+output_file = "data/playlists/playlist.m3u"
 
 # ✅ Wait time for URLs to respond (in seconds)
 REQUEST_TIMEOUT = 10
@@ -37,14 +37,14 @@ def get_all_channels(urls):
     for url in urls:
         data = fetch_json(url)
         if isinstance(data, dict):  # in case JSON is in {"channels": [...]}
-            data = data.get("channels", [])
+            data = data.get("channeldata", [])
         if isinstance(data, list):
             channels.extend(data)
     return channels
 
 # ✅ Build stream URL
 def build_stream_url(channel):
-    url = channel.get("mpd", "")
+    url = channel.get("m3u8", "")
     token = channel.get("token", "")
     if token and "?" not in url:
         url += "?" + token
@@ -67,9 +67,9 @@ def build_kodiprop(channel):
 def convert_to_m3u(channels):
     m3u = "#EXTM3U\n"
     for ch in channels:
-        name = ch.get("name", "Unknown")
+        name = ch.get("channelname", "Unknown")
         logo = ch.get("logo", "")
-        group = ch.get("category", "Others")
+        group = ch.get("area", "Others")
         stream_url = build_stream_url(ch)
         kodiprop = build_kodiprop(ch)
 
