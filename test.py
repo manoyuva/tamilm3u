@@ -29,5 +29,5 @@ def json_to_m3u(json_file, m3u_file):
                 # Write URL
                 out.write(f"{url}\n")
 
-    print("✔ M3U file created:", m3u_file)
+    print("✔ M3U file created: playlist.m3u")
     
