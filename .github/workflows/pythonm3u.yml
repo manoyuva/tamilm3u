@@ -1,4 +1,4 @@
-name: JSON → M3U Auto Convert
+name: JSON → M3U
 
 on:
   workflow_dispatch:
