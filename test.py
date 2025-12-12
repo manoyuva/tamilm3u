@@ -1,6 +1,6 @@
 import json
 
-def json_to_m3u(json_file, m3u_file):
+def json_to_m3u("playlist.json", "playlist.m3u"):
     with open(json_file, 'r', encoding='utf-8') as f:
         channels = json.load(f)
 
