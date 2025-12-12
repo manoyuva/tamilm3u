@@ -1,7 +1,7 @@
 import requests
 import json
 
-def download_json(url, filename="data.json"):
+def download_json(url="https://sscloud7.in/multi/tamilott.json", filename="data.json"):
     """Download JSON data from a URL and save it."""
     print("Downloading JSON...")
     response = requests.get(url)
