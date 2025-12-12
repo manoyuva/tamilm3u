@@ -2,7 +2,7 @@ import requests
 import json
 import argparse
 
-def json_to_m3u(json_file="channels.json", m3u_file="tamilott.m3i", default_group="India"):
+def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u", default_group="India"):
     """Convert a JSON playlist file to an M3U playlist file."""
 
     with open(json_file, "r", encoding="utf-8") as f:
