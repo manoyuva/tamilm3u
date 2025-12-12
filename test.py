@@ -43,6 +43,6 @@ def json_to_m3u(json_filename, m3u_filename):
 if __name__ == "__main__":
     # Define input and output filenames
     input_json = 'playlist.json'
-    output_m3u = 'output_playlist.m3u'
+    output_m3u = 'playlist.m3u'
     
     json_to_m3u(input_json, output_m3u)
