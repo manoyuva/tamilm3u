@@ -1,3 +1,4 @@
+import requests
 import json
 
 def json_to_m3u(json_file="channels.json", m3u_file="tamilott.m3u"):
