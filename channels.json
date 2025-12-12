@@ -1,0 +1,9 @@
+{
+  "channels": [
+    {
+      "name": "Info",
+      "logo": "logo.png",
+      "url": "http://example.com/stream.m3u8"
+    }
+  ]
+}
