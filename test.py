@@ -25,7 +25,6 @@ def json_to_m3u(json_file, m3u_file):
                     out.write(f'#EXTINF:-1 tvg-logo="{logo}",{name}\n')
                 else:
                     out.write(f"#EXTINF:-1,{name}\n")
-
                 # Write URL
                 out.write(f"{url}\n")
 
