@@ -31,16 +31,11 @@ jobs:
       run: |
         python3 download_json.py
 
-    # 5. Convert JSON → M3U
-    - name: Convert JSON to M3U
-      run: |
-        python3 json_to_m3u.py
-
     # 6. Commit & Push result
     - name: Commit & push playlist
       run: |
         git config user.name "github-actions"
         git config user.email "actions@github.com"
-        git add playlist.m3u
+        git add channels.json
         git commit -m "Updated M3U playlist automatically"
         git push
