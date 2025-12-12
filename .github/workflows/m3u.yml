@@ -1,17 +1,18 @@
-name: JSON to M3U Converter
+name: Convert JSON to M3U
 
 on:
   push:
     paths:
       - "channels.json"
+      - "json/tamilott.json"
   workflow_dispatch:
 
 jobs:
-  convert:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -19,20 +20,19 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+
       - name: Convert JSON to M3U
         run: |
-          echo "Searching for JSON files..."
-          for file in $(find . -name "channels.json"); do
-            base="channels.json"
-            output="channels.m3u"
-            echo "Converting $file → $output"
-            python3 json_to_m3u.py "$file" "$output"
-          done
+          python json_to_m3u.py channels.json channels.m3u
 
-      - name: Commit and Push M3U Files
+      - name: Commit M3U output
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          git add channels.m3u || true
-          git commit -m "Auto-converted JSON to M3U" || echo "No changes to commit"
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add channels.m3u
+          git commit -m "Auto-update: JSON to M3U" || echo "No changes to commit"
           git push
+          
