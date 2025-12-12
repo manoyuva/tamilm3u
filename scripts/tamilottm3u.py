@@ -1,7 +1,7 @@
 import json
 
 
-def json_to_m3u(input_file, output_file="data/playlists/playlist.m3u"):
+def json_to_m3u(input_file, output_file="data/playlists/sports_playlists.m3u"):
     """
     Converts JSON IPTV data to an M3U playlist file and extracts EPG sources.
 
@@ -69,4 +69,4 @@ if __name__ == "__main__":
     input_file = "data/tamilott.json"
 
     # Generate the M3U playlist and EPG sources
-    json_to_m3u(input_file, "tata_playlist_with_epg.m3u")
+    json_to_m3u(input_file, "data/playlists/sports_playlists.m3u")
