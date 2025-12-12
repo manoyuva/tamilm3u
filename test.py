@@ -1,48 +1,47 @@
 import json
-import sys
+import os
 
-def json_to_m3u(json_filename, m3u_filename):
+def json_to_m3u(json_file_path = "playlist.json", m3u_file_path ="playlist.m3u"):
     """
     Converts a JSON playlist file to an M3U playlist file.
     """
     try:
-        with open(json_filename, 'r', encoding='utf-8') as f:
+        with open(json_file_path, 'r') as f:
             data = json.load(f)
     except FileNotFoundError:
-        print(f"Error: The file {json_filename} was not found.")
-        sys.exit(1)
+        print(f"Error: {json_file_path} not found.")
+        return
     except json.JSONDecodeError:
-        print(f"Error: Could not decode JSON from the file {json_filename}.")
-        sys.exit(1)
+        print(f"Error: Could not decode JSON from {json_file_path}.")
+        return
 
     if not isinstance(data, list):
-        print("Error: JSON data should be a list of track objects.")
-        sys.exit(1)
+        print("Error: JSON data should be a list of tracks.")
+        return
 
-    with open(m3u_filename, 'w', encoding='utf-8') as f:
-        # Write the M3U header
+    with open(m3u_file_path, 'w') as f:
+        # M3U extended format header
         f.write("#EXTM3U\n")
 
         for track in data:
-            try:
-                title = track['title']
-                url = track['url']
-                # Use the 'duration' if available, otherwise default to -1 (unknown)
-                duration = track.get('duration', -1) 
-                
-                # Write the #EXTINF line
-                f.write(f"#EXTINF:{duration},{title}\n")
-                # Write the track URL
-                f.write(f"{url}\n")
-            except KeyError as e:
-                print(f"Warning: Missing key {e} in one of the track entries. Skipping.")
-                continue
+            title = track.get("title", "Unknown Title")
+            runtime = track.get("runtime", -1)
+            path = track.get("path")
 
-    print(f"Successfully converted '{json_filename}' to '{m3u_filename}'.")
+            if path:
+                # Write the extended info line
+                f.write(f"#EXTINF:{runtime},{title}\n")
+                # Write the file path line
+                f.write(f"{path}\n")
+            else:
+                print(f"Warning: Missing 'path' for track '{title}'. Skipping.")
 
-if __name__ == "__main__":
-    # Define input and output filenames
-    input_json = 'playlist.json'
-    output_m3u = 'playlist.m3u'
-    
-    json_to_m3u(input_json, output_m3u)
+    print(f"Successfully converted '{json_file_path}' to '{m3u_file_path}'.")
+
+# --- Usage Example ---
+# Define input and output file names
+input_json = "playlist.json"
+output_m3u = "playlist.m3u"
+
+# Run the conversion
+json_to_m3u(input_json, output_m3u)
