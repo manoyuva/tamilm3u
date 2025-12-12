@@ -14,7 +14,7 @@ def json_to_m3u(json_file, m3u_file):
             name = ch.get("name", "Unknown")
             logo = ch.get("logo", "")
             url = ch.get("url", "")
-            group = ch.get("group", "General")
+            group = ch.get("group", "")
 
             if not url:
                 continue
