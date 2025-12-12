@@ -1,10 +1,10 @@
 import json
 
 def json_to_m3u(json_file, m3u_file):
-    with open(json_file, "r", encoding="utf-8") as f:
+    with open("playlist.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    with open(m3u_file, "w", encoding="utf-8") as out:
+    with open("playlist.m3u", "w", encoding="utf-8") as out:
         out.write("#EXTM3U\n")
 
         # Loop through groups like "DS1", "DS2"...
