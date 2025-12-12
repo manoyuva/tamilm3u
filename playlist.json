@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Example artist - Example title",
+        "duration": 105,
+        "url": "C:\\Files\\My Music\\Example.mp3"
+    },
+    {
+        "title": "Example Artist2 - Example title2",
+        "duration": 321,
+        "url": "C:\\Files\\My Music\\Favorites\\Example2.ogg"
+    }
+]
