@@ -11,10 +11,10 @@ def json_to_m3u(json_file, m3u_file):
         m3u.write("#EXTM3U\n")
 
         for ch in channels:
-            name = ch.get("channelname", "Unknown")
+            name = ch.get("name", "Unknown")
             logo = ch.get("logo", "")
-            url = ch.get("playbackurl", "")
-            group = ch.get("area", "General")
+            url = ch.get("url", "")
+            group = ch.get("group", "General")
 
             if not url:
                 continue
