@@ -1,19 +1,26 @@
+# -*- coding: utf-8 -*-
+
 import json
+from urllib import request
 
-with open('data/tamilott.json') as f:
-    data = json.load(f)
+channels_url = 'http://sscloud7.in/multi/tamilott.json'
+channels_json = request.urlopen(channels_url).read().decode('utf8')
+channels = json.loads(channels_json)
 
-with open('data/playlists/sports_playlists.m3u', 'w') as f:
-    f.write('#EXTM3U\n')
+f = open('data/playlits/sports_playlists.m3u', 'w+', encoding='utf-8')
+f.write('#EXTM3U\n')
+for i in range(len(channels['channeldata'])):
+    for j in range(len(channels['channeldata'][i]['Channels'])):
+        line_1 = '#EXTINF:-1 group-title="' + channels['channeldata'][i]['Name'] + '",' + channels['channeldata'][i]['Channels'][j]['Name'] + '\n'
+        m3u8_url = 'https://iptv.tsinghua.edu.cn/hls/' + channels['channeldata'][i]['Channels'][j]['Vid'] + '.m3u8'
+        f.write(line_1)
+        f.write(m3u8_url + '\n')
+f.close()
 
-    for channel in data:
-        name = channel['channeldata']['channelname']
-        chid = channel['channeldata']['Id']
-        chno = channel['channeldata']['Id']
-        category = channel['channeldata']['area']
-        logo = channel['channeldata']['logo']
-        url = channel['channeldata']['playbackurl']
-
-        f.write(f'#EXTINF:-1 tvg-id="{chid}" tvg-chno="{chno}" group-title="{category}" tvg-logo="{logo}", {name}\n{url}\n')
-
-print("File saved as data/playlists/sports_playlists.m3u")
+f = open('channels.txt', 'w+', encoding='utf-8')
+for i in range(len(channels['channeldata'])):
+    f.write(channels['channeldata'][i]['Name'] + '\n')
+    for j in range(len(channels['channeldata'][i]['Channels'])):
+        m3u8_url = channels['channeldata'][i]['Channels'][j]['Name'] + ',https://iptv.tsinghua.edu.cn/hls/' + channels['channeldata'][i]['Channels'][j]['Vid'] + '.m3u8'
+        f.write(m3u8_url + '\n')
+f.close()
