@@ -1,9 +1,9 @@
 import requests
 import json
 
-JSON_URL = "https://sscloud7.in/multi/tamilott.json"
+url = "https://sscloud7.in/multi/tamilott.json"
 
-response = requests.get(JSON_URL)
+response = requests.get(url)
 data = response.json()
 
 with open("channels.json", "w", encoding="utf-8") as f:
