@@ -33,4 +33,3 @@ jobs:
           git add tamilott.m3u
           git commit -m "Auto-generated M3U from JSON" || echo "No changes to commit"
           git push
-          
