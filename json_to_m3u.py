@@ -1,8 +1,7 @@
 import json
+import sys
 
-def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u", default_group="India"):
-    """Convert a JSON playlist file to an M3U playlist file."""
-
+def json_to_m3u(json_file, m3u_file):
     with open(json_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -15,14 +14,16 @@ def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u", default_grou
             name = ch.get("name", "Unknown")
             logo = ch.get("logo", "")
             url = ch.get("url", "")
-            group = ch.get("group", default_group)
+            group = ch.get("group", "General")
 
             if not url:
-                continue  # skip channels with no URL
+                continue
 
             m3u.write(
                 f'#EXTINF:-1 tvg-name="{name}" tvg-logo="{logo}" group-title="{group}",{name}\n'
             )
             m3u.write(url + "\n")
 
-    print(f"✔ M3U file created: {m3u_file}")
+
+if __name__ == "__main__":
+    json_to_m3u(sys.argv[1], sys.argv[2])
