@@ -1,26 +1,33 @@
 import json
 
-def json_to_m3u(json_file='playlist.json', m3u_file='playlist.m3u'):
-    with open(json_file, 'r', encoding='utf-8') as f:
+def json_to_m3u(json_file, m3u_file):
+    with open(json_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    with open(m3u_file, 'w', encoding='utf-8') as m3u:
-        m3u.write("#EXTM3U\n")
+    with open(m3u_file, "w", encoding="utf-8") as out:
+        out.write("#EXTM3U\n")
 
-        for item in data:
-            title = item.get("title", "Unknown")
-            url = item.get("url", "")
-            tvg_id = item.get("tvg-id", "")
-            tvg_logo = item.get("tvg-logo", "")
-            group = item.get("group", "")
+        # Loop through groups like "DS1", "DS2"...
+        for group_key in data:
+            group = data[group_key]
+            channels = group.get("Channels", [])
 
-            m3u.write(
-                f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-logo="{tvg_logo}" group-title="{group}",{title}\n'
-            )
-            m3u.write(f"{url}\n\n")
+            for ch in channels:
+                name = ch.get("Name", "No Name")
+                logo = ch.get("Logo", "")
+                url = ch.get("Url", "")
 
-    print(f"Created: {m3u_file}")
+                if not url:
+                    continue
 
+                # Write EXTINF line with logo
+                if logo:
+                    out.write(f'#EXTINF:-1 tvg-logo="{logo}",{name}\n')
+                else:
+                    out.write(f"#EXTINF:-1,{name}\n")
 
-# Example usage:
-json_to_m3u("playlist.json", "playlist.m3u")
+                # Write URL
+                out.write(f"{url}\n")
+
+    print("✔ M3U file created:", m3u_file)
+    
