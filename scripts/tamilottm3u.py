@@ -16,4 +16,4 @@ with open('data/playlists/sports_playlists.m3u', 'w') as f:
 
         f.write(f'#EXTINF:-1 tvg-id="{chid}" tvg-chno="{chno}" group-title="{category}" tvg-logo="{logo}", {name}\n{url}\n')
 
-print("File saved as playlist.m3u8")
+print("File saved as data/playlists/sports_playlists.m3u")
