@@ -2,7 +2,7 @@ name: 😂Tamil Ott Json Downloader😂
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '0 0 * * *' #Tamilott daily Json Generator
   workflow_dispatch:
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
       - name: Commit and Push
         if: steps.git_status.outputs.has_changes == 'true'
         run: |
-          git add data/tamilott.json
+          git add json/tamilott.json
           git commit -m "😍Tamil Ott ✅"
           git push
           
