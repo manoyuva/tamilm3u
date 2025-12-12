@@ -1,16 +1,12 @@
-[
-    {
-        "name": "Channel 1",
-        "url": "http://example.com/stream1",
-        "tvg_id": "ch1",
-        "tvg_logo": "http://example.com/logo1.png",
-        "group": "News"
-    },
-    {
-        "name": "Channel 2",
-        "url": "http://example.com/stream2",
-        "tvg_id": "ch2",
-        "tvg_logo": "http://example.com/logo2.png",
-        "group": "Sports"
-    }
-]
+{
+  "DS1": {
+    "Groupname": "xyz",
+    "Channels": [
+      {
+        "Name": "",
+        "Logo": "",
+        "Url": ""
+      }
+    ]
+  }
+}
