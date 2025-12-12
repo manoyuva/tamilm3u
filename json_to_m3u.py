@@ -1,6 +1,4 @@
-import requests
 import json
-import argparse
 
 def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u", default_group="India"):
     """Convert a JSON playlist file to an M3U playlist file."""
@@ -28,14 +26,3 @@ def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u", default_grou
             m3u.write(url + "\n")
 
     print(f"✔ M3U file created: {m3u_file}")
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert JSON playlist to M3U")
-    parser.add_argument("json_file", help="Input JSON file")
-    parser.add_argument("m3u_file", help="Output M3U file")
-    parser.add_argument("--group", default="India", help="Default group name")
-
-    args = parser.parse_args()
-
-    json_to_m3u(args.json_file, args.m3u_file, args.group)
