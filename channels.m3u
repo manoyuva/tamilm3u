@@ -1,1 +1,3 @@
 #EXTM3U
+#EXTINF:-1 tvg-name="Info" tvg-logo="logo.png" group-title="General",Info
+http://example.com/stream.m3u8
