@@ -1,91 +1,53 @@
-import requests
 import json
-import time
+import argparse
+import os
 
-# ✅ Input URLs at the top
-input_urls = [
-    #"https://example.cpm/index.json", 
-    "http://sscloud7.in/multi/tamilott.json",
-    #add as much as links you want
-]
+def json_to_m3u(json_data, output_file):
+    """
+    Converte una lista JSON di canali IPTV in un file M3U.
 
-# ✅ Output M3U file
-output_file = "data/playlists/playlist.m3u"
+    :param json_data: Lista JSON contenente i dati dei canali.
+    :param output_file: Nome del file M3U di output.
+    """
+    with open(output_file, 'w', encoding='utf-8') as m3u_file:
+        # Scrivi l'intestazione del file M3U
+        m3u_file.write("#EXTM3U\n")
+        
+        # Itera attraverso ogni canale nel JSON
+        for channel in json_data:
+            # Estrai le informazioni del canale
+            group = channel.get("channeldata","area", "")
+            name = channel.get("channeldata""channelname", "")
+            logo = channel.get("channeldata","logo", "")
+            tvg_id = channel.get("tvg_id", "")
+            url = channel.get("playbackurl", "")
+            
+            # Scrivi le informazioni del canale nel file M3U
+            m3u_file.write(f'#EXTINF:-1 group-title="{group}" tvg-id="{tvg_id}" tvg-logo="{logo}",{name}\n')
+            m3u_file.write(f'{url}\n')
 
-# ✅ Wait time for URLs to respond (in seconds)
-REQUEST_TIMEOUT = 10
-WAIT_BETWEEN_REQUESTS = 1
+def main():
+    # Configura il parser degli argomenti
+    parser = argparse.ArgumentParser(description="Converti un file JSON di canali IPTV in un file M3U.")
+    parser.add_argument("input_file", help="Percorso del file JSON di input")
+    args = parser.parse_args()
 
-# ✅ Logger
-def log(msg):
-    print(f"[INFO] {msg}")
+    # Verifica che il file di input esista
+    if not os.path.exists(args.input_file):
+        print(f"Errore: Il file {args.input_file} non esiste.")
+        return
 
-# ✅ Fetch JSON from a given URL, handle PHP and JSON endpoints
-def fetch_json(url):
-    try:
-        time.sleep(WAIT_BETWEEN_REQUESTS)
-        res = requests.get(url, timeout=REQUEST_TIMEOUT)
-        res.raise_for_status()
-        return res.json()
-    except Exception as e:
-        log(f"❌ Failed to fetch {url}: {e}")
-        return []
+    # Carica il file JSON
+    with open(args.input_file, 'r', encoding='utf-8') as json_file:
+        json_data = json.load(data/tamilott.m3u)
 
-# ✅ Combine and normalize all channels
-def get_all_channels(urls):
-    channels = []
-    for url in urls:
-        data = fetch_json(url)
-        if isinstance(data, dict):  # in case JSON is in {"channels": [...]}
-            data = data.get("channeldata", [])
-        if isinstance(data, list):
-            channels.extend(data)
-    return channels
+    # Genera il nome del file di output
+    base_name = os.path.splitext(args.input_file)[0]  # Rimuove l'estensione .json
+    output_file = f"{base_name}.m3u"
 
-# ✅ Build stream URL
-def build_stream_url(channel):
-    url = channel.get("m3u8", "")
-    token = channel.get("token", "")
-    if token and "?" not in url:
-        url += "?" + token
-    return url
+    # Converti il JSON in M3U e salva il file
+    json_to_m3u(json_data, output_file)
+    print(f"File M3U generato con successo: {output_file}")
 
-# ✅ Build KODIPROP tag if needed
-def build_kodiprop(channel):
-    props = []
-    if channel.get("referer"):
-        props.append(f"#KODIPROP:inputstream.adaptive.license_key=https://license-url|Referer={channel['referer']}|")
-    if channel.get("userAgent"):
-        props.append(f"#KODIPROP:User-Agent={channel['userAgent']}")
-    if "drm" in channel:
-        for keyid, key in channel["drm"].items():
-            props.append(f"#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha")
-            props.append(f"#KODIPROP:inputstream.adaptive.license_key=https://license-url/{keyid}|{key}|")
-    return "\n".join(props)
-
-# ✅ Convert to M3U
-def convert_to_m3u(channels):
-    m3u = "#EXTM3U\n"
-    for ch in channels:
-        name = ch.get("channelname", "Unknown")
-        logo = ch.get("logo", "")
-        group = ch.get("area", "Others")
-        stream_url = build_stream_url(ch)
-        kodiprop = build_kodiprop(ch)
-
-        m3u += f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}", {name}\n'
-        if kodiprop:
-            m3u += f"{kodiprop}\n"
-        m3u += f"{stream_url}\n"
-    return m3u
-
-# ✅ Main execution
 if __name__ == "__main__":
-    print("🔄 Starting JSON to M3U conversion...")
-    all_channels = get_all_channels(input_urls)
-    final_m3u = convert_to_m3u(all_channels)
-
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(final_m3u)
-
-    print(f"✅ M3U Playlist created successfully with {len(all_channels)} channels: {output_file}")
+    main()
