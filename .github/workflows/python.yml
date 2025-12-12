@@ -1,6 +1,8 @@
 name: Run Python Script
-
 on:
+  schedule:
+    - cron: '0 0 * * *' #Tamilott daily Json Generator
+  workflow_dispatch:
   push:
     branches:
       - main # or your default branch name
