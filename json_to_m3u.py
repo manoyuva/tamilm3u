@@ -5,16 +5,16 @@ def json_to_m3u(json_file, m3u_file):
     with open(json_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    channels = data.get("channels", [])
+    channels = data.get("channeldata", [])
 
     with open(m3u_file, "w", encoding="utf-8") as m3u:
         m3u.write("#EXTM3U\n")
 
         for ch in channels:
-            name = ch.get("name", "Unknown")
+            name = ch.get("channelname", "Unknown")
             logo = ch.get("logo", "")
-            url = ch.get("url", "")
-            group = ch.get("group", "General")
+            url = ch.get("playbackurl", "")
+            group = ch.get("area", "General")
 
             if not url:
                 continue
