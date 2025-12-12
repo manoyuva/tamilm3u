@@ -17,7 +17,7 @@ jobs:
 
       - name: Download JSON
         run: |
-          curl -sS -o data/tamilott.json "http://sscloud7.in/multi/tamilott.json"
+          curl -sS -o json/tamilott.json "http://sscloud7.in/multi/tamilott.json"
 
       - name: Configure Git User
         run: |
