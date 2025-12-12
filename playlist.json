@@ -1,12 +1,7 @@
 {
-  "DS1": {
-    "Groupname": "xyz",
-    "Channels": [
-      {
-        "Name": "",
-        "Logo": "",
-        "Url": ""
-      }
-    ]
-  }
+  "content_title": "cloud7 Tamil OTT",
+  "content_sub_title": "India",
+  "app_type": "tv",
+  "content_url": "http://server.sscloud7.in:1935/cloud/cloud7/playlist.m3u8",
+  "stream_url": "http://server.sscloud7.in:1935/cloud/cloud7/playlist.m3u8"
 }
