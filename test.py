@@ -1,34 +1,24 @@
 import json
 
-def json_to_m3u(json_file, m3u_file):
-    with open("playlist.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
+# Load JSON file
+with open("playlist.json", "r") as f:
+    items = json.load(f)
 
-    with open("playlist.m3u", "w", encoding="utf-8") as out:
-        out.write("#EXTM3U\n")
+# Open output M3U file
+with open("play.m3u", "w") as m3u:
+    m3u.write("#EXTM3U\n")
 
-        # Loop through groups like "DS1", "DS2"...
-        for group_key in data:
-            group = data[group_key]
-            channels = group.get("Channels", [])
-
-            for ch in channels:
-                name = ch.get("Name", "No Name")
-                logo = ch.get("Logo", "")
-                url = ch.get("Url", "")
-
-                if not url:
-                    continue
-
-                # Write EXTINF line with logo
-                if logo:
-                    out.write(f'#EXTINF:-1 tvg-logo="{logo}",{name}\n')
-                else:
-                    out.write(f"#EXTINF:-1,{name}\n")
-                # Write URL
-                out.write(f"{url}\n")
-
-    #print("✔ M3U file created: playlist.m3u")
-
-print(f"M3U playlist saved to: play.m3u")
+    # If file contains a list of channels
+    if isinstance(items, list):
+        for item in items:
+            title = item.get("content_title", "No Title")
+            url = item.get("stream_url") or item.get("content_url")
+            m3u.write(f'#EXTINF:-1,{title}\n{url}\n')
     
+    # If single channel object
+    elif isinstance(items, dict):
+        title = items.get("content_title", "No Title")
+        url = items.get("stream_url") or items.get("content_url")
+        m3u.write(f'#EXTINF:-1,{title}\n{url}\n')
+
+print("M3U file created: play.m3u")
