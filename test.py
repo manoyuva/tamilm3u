@@ -21,4 +21,4 @@ with open("play.m3u", "w") as m3u:
         url = items.get("stream_url") or items.get("content_url")
         m3u.write(f'#EXTINF:-1,{title}\n{url}\n')
 
-print("M3U file created: play.m3u")
+ print(f"M3U playlist saved to play.m3u")
