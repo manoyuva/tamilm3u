@@ -28,8 +28,8 @@ jobs:
 
       - name: Commit & push M3U file
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "manoyuva"
+          git config user.email "manoyuva27@gmail.com"
           git add tamilott.m3u
           git commit -m "Auto-generated M3U from JSON" || echo "No changes to commit"
           git push
