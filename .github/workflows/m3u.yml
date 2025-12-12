@@ -1,36 +1,41 @@
-name: JSON to M3U Converter
+name: JSON → M3U Auto Convert
 
 on:
-  push:
-    paths:
-      - "channels.json"      # Run only when JSON changes
-  workflow_dispatch:         # Allow manual run
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"   # runs every 6 hours (you can change it)
 
 jobs:
-  convert:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+    # 1. Checkout repository
+    - name: Checkout repo
+      uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: pip install --upgrade pip
+    # 2. Set up Python
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
 
-      - name: Run JSON → M3U converter
-        run: |
-          python json_to_m3u.py
+    # 3. Install dependencies
+    - name: Install dependencies
+      run: |
+        pip install requests
 
-      - name: Commit & push M3U file
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add channels.m3u
-          git commit -m "Auto-generated M3U from JSON" || echo "No changes to commit"
-          git push
-          
+    # 4. Download JSON
+    - name: Download JSON file
+      run: |
+        python3 json_to_m3u.py
+
+    # 6. Commit & Push result
+    - name: Commit & push playlist
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add channels.m3u
+        git commit -m "Updated M3U playlist automatically"
+        git push
