@@ -1,10 +1,14 @@
 import requests
+import json
 
 url = "https://sscloud7.in/multi/tamilott.json"
 
-r = requests.get(url)
+response = requests.get(url)
+response.raise_for_status()
 
-with open("data.json", "wb") as f:
-    f.write(r.content)
+json_data = response.json()
 
-print("✔ File saved")
+with open("data.json", "w") as f:
+    json.dump(json_data, f, indent=4)
+
+print("✔ File saved to data.json")
