@@ -2,7 +2,7 @@ import json
 import requests
 import re
 
-JSON_URL = "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=3000&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM"
+JSON_URL = "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=300&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM<"
 OUTPUT_M3U = "playlist/AshokaDigital.m3u"
 
 def clean_html(text):
