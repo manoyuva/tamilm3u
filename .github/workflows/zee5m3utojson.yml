@@ -25,7 +25,7 @@ jobs:
             -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0" \
             -H "Cache-Control: no-cache, no-store" \
             "https://zee5.cloud-hatchh.workers.dev/?token=42e4f5-2d413b-3c37d8-7f3f25" \
-            -o data/input.m3u
+            -o playlist/zee5.m3u
 
       - name: Convert M3U to JSON (split headers)
         run: |
