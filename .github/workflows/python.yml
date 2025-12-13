@@ -1,9 +1,9 @@
-name: JSON → M3U Auto Convert
+name: JSON URL 2 JSON PYTHON
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"   # runs every 6 hours (you can change it)
+    - cron: "0 0 * * *"   # runs every 6 hours (you can change it)
 
 jobs:
   build:
