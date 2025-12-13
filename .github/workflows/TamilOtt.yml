@@ -1,0 +1,32 @@
+name: 😍Tamil Ott m3u😍
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: 😍Tamil Ott json to m3u😍
+        run: python script/TamilOtt.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add playlist/TamilOtt.m3u
+          git commit -m "Auto update M3U from TamilOtt.json" || echo "No changes"
+          git push
