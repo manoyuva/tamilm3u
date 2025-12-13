@@ -1,5 +1,5 @@
-import json
-import sys
+import re, requests, time, json, os
+from typing import List, Dict
 
 def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u"):
     with open(json_file, "r", encoding="utf-8") as f:
@@ -26,4 +26,4 @@ def json_to_m3u(json_file="channels.json", m3u_file="channels.m3u"):
 
 
 if __name__ == "__main__":
-    json_to_m3u(sys.argv[1], sys.argv[2])
+    mani()
