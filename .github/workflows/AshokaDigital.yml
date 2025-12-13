@@ -1,0 +1,32 @@
+name: 😂 Ashoka Digital M3U 😂
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Convert JSON to M3U
+        run: python script/AshokaDigital.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add playlist/AshokaDigital.m3u
+          git commit -m "Auto update Ashoka Digital M3U" || echo "No changes"
+          git push
