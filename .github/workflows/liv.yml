@@ -2,7 +2,7 @@ name: 🏑SOON LIV🏏
 
 on:
   schedule:
-    - cron: '0/5 * * * *'   # every 6 hours
+    - cron: '0/30 * * * *'  
   workflow_dispatch:
 
 jobs:
