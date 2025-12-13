@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1 tvg-logo="http://example.com/logo.png" group-title="News",BBC One
+http://example.com/bbcone.m3u8
+#EXTINF:-1 tvg-logo="http://example.com/cnn.png" group-title="News",CNN
+http://example.com/cnn.m3u8
