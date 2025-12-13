@@ -1,6 +1,6 @@
 import json
 #channels = data.get("channeldata",[])
-with open("input.json", "r", encoding="utf-8") as f:
+with open("channels.json", "r", encoding="utf-8") as f:
     channels = json.load(f)
 
 with open("output.m3u", "w", encoding="utf-8") as f:
