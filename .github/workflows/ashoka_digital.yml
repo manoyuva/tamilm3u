@@ -1,0 +1,43 @@
+name: 😂 Ashoka Digital Json Downloader😂 
+
+on:
+  schedule:
+    - cron: '0 0 * * *' #Ashoka digital daily Json Generator
+  workflow_dispatch:
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download JSON
+        run: |
+          curl -sS -o json/ashoka_digital.json "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=300&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C"
+
+      - name: Configure Git User
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Check for Changes
+        id: git_status
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Commit and Push
+        if: steps.git_status.outputs.has_changes == 'true'
+        run: |
+          git add json/ashoka_digital.json
+          git commit -m "😍 ashoka digital ✅"
+          git push
+          
