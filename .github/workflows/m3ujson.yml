@@ -1,0 +1,31 @@
+name: JSON to M3U
+
+on:
+  push:
+    paths:
+      - "input.json"
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Convert JSON to M3U
+        run: python jsonm3u.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add output.m3u
+          git commit -m "Auto update M3U from JSON" || echo "No changes"
+          git push
