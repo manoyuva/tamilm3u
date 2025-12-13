@@ -18,13 +18,13 @@ jobs:
           mkdir -p data
           curl -L \
             "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=300&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C" \
-            -o data/api_page1.json
+            -o json/api_page1.json
 
       - name: Validate JSON (optional)
         run: |
           python - << 'EOF'
           import json
-          with open('data/api_page1.json', 'r', encoding='utf-8') as f:
+          with open('json/api_page1.json', 'r', encoding='utf-8') as f:
               json.load(f)
           print('JSON is valid')
           EOF
@@ -33,6 +33,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add data/api_page1.json
+          git add json/api_page1.json
           git commit -m "Auto update API JSON data" || echo "No changes"
           git push
