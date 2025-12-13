@@ -5,8 +5,8 @@ Custom JSON to M3U converter for OTT-style JSON
 (Supports `channeldata` array inside each content object)
 """
 
-INPUT_JSON = "channels.json"
-OUTPUT_M3U = "output.m3u"
+INPUT_JSON = "json/tamilott.json"
+OUTPUT_M3U = "playlist/tamilott.m3u"
 
 with open(INPUT_JSON, "r", encoding="utf-8") as f:
     data = json.load(f)
