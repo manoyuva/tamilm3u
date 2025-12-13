@@ -1,8 +1,8 @@
-name: Download M3U (Custom User-Agent)
+name: 🏑SOON LIV🏏
 
 on:
   schedule:
-    - cron: '0 */6 * * *'   # every 6 hours
+    - cron: '0/5 * * * *'   # every 6 hours
   workflow_dispatch:
 
 jobs:
@@ -13,18 +13,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download M3U using custom User-Agent
+      - name: 🏏Download SoON LIV Playlist🏑
         run: |
           mkdir -p playlists
           curl -L \
             -H "User-Agent: okhttp/4.12.0" \
             "https://nonyliv.saqlainhaider8198.workers.dev/nony2.m3u" \
-            -o playlist/nony2.m3u
+            -o playlist/soonliv.m3u
 
       - name: Commit & Push changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add playlist/nony2.m3u
+          git add playlist/soonliv.m3u
           git commit -m "Auto update nony2.m3u (UA okhttp)" || echo "No changes"
           git push
