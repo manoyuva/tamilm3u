@@ -1,43 +1,38 @@
-name: 😂 Ashoka Digital Json Downloader😂 
+name: Download JSON API Data
 
 on:
   schedule:
-    - cron: '0 0 * * *' #Ashoka digital daily Json Generator
+    - cron: '0 */6 * * *'   # every 6 hours
   workflow_dispatch:
 
 jobs:
-  update-file:
+  download-json:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Download JSON
+      - name: Download JSON data from API
         run: |
-          curl -sS -o json/ashoka_digital.json "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=300&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C"
+          mkdir -p data
+          curl -L \
+            "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=300&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C" \
+            -o data/api_page1.json
 
-      - name: Configure Git User
+      - name: Validate JSON (optional)
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          python - << 'EOF'
+          import json
+          with open('data/api_page1.json', 'r', encoding='utf-8') as f:
+              json.load(f)
+          print('JSON is valid')
+          EOF
 
-      - name: Check for Changes
-        id: git_status
+      - name: Commit & Push changes
         run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
-
-      - name: Commit and Push
-        if: steps.git_status.outputs.has_changes == 'true'
-        run: |
-          git add json/ashoka_digital.json
-          git commit -m "😍 ashoka digital ✅"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add data/api_page1.json
+          git commit -m "Auto update API JSON data" || echo "No changes"
           git push
-          
