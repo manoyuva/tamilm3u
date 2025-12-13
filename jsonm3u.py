@@ -1,15 +1,15 @@
 import json
 
 with open("input.json", "r", encoding="utf-8") as f:
-    channels = json.load(f)
-
+    data = json.load(f)
+channels = data.get("channeldata",[])
 with open("output.m3u", "w", encoding="utf-8") as f:
     f.write("#EXTM3U\n")
     for ch in channels:
-        name = ch.get("name", "")
-        url = ch.get("url", "")
+        name = ch.get("channelname", "")
+        url = ch.get("playbackurl", "")
         logo = ch.get("logo", "")
-        group = ch.get("group", "")
+        group = ch.get("area", "")
 
         f.write(
             f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{name}\n'
