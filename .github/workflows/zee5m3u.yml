@@ -1,0 +1,31 @@
+name: 😆Download ZEE5 Playlist😆
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours
+  workflow_dispatch:
+
+jobs:
+  download-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download M3U with custom headers
+        run: |
+          mkdir -p playlist
+          curl -L \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0" \
+            -H "Cache-Control: no-cache, no-store" \
+            "https://zee5.cloud-hatchh.workers.dev/?token=42e4f5-2d413b-3c37d8-7f3f25" \
+            -o playlist/zee5.m3u
+
+      - name: Commit & Push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add playlist/zee5.m3u
+          git commit -m "Auto update ZEE5 playlist" || echo "No changes"
+          git push
