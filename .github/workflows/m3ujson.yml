@@ -3,7 +3,7 @@ name: JSON to M3U
 on:
   push:
     paths:
-      - "input.json"
+      - "channels.json"
   workflow_dispatch:
 
 jobs:
