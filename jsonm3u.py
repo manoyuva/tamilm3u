@@ -5,7 +5,7 @@ with open("channels.json", "r", encoding="utf-8") as f:
 
 with open("output.m3u", "w", encoding="utf-8") as f:
     f.write("#EXTM3U\n")
-    for ch in channels = data.get("channeldata",[]):
+    for ch in channels ("channeldata",[]):
         name = ch.get("channelname", "")
         url = ch.get("playbackurl", "")
         logo = ch.get("logo", "")
