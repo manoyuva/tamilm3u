@@ -29,7 +29,7 @@ jobs:
 
       - name: Convert M3U to JSON (split headers)
         run: |
-          python script/m3u_to_json/zee5.py
+          python script/m3u_to_json/zee5jsoncon.py
 
       - name: Commit & Push output
         run: |
