@@ -201,8 +201,6 @@ rtmp://103.87.105.51:1935/acpisaioli/acpisaioli?psk=123456
 rtmp://aaryaa.sscloud7.in/live/aaryaatv
 #EXTINF:-1 tvg-name="PR TV" tvg-logo="1752245098_PR TV LOGO PNG.png" group-title="Tamil Nadu",PR TV
 http://applelive.in/prtv/prtv.m3u8
-#EXTINF:-1 tvg-name="Surya Tv" tvg-logo="1732170490_WhatsApp_Image_2024-11-21_at_11.10.20_AM-removebg-preview (2).png" group-title="Tamil Nadu",Surya Tv
-https://galaxyott.live/hls/suryatv.m3u8
 #EXTINF:-1 tvg-name="mathi tv" tvg-logo="1753716414_madhi tv.png" group-title="Tamil Nadu",mathi tv
 https://notvstream.in/mathitv/mathitv.m3u8
 #EXTINF:-1 tvg-name="strawberry tv" tvg-logo="1756798791_Logo_00341.png" group-title="Tamil Nadu",strawberry tv
@@ -239,8 +237,6 @@ http://198.144.149.206:8080/NOTV/KAVINTV/index.m3u8?token=GTR
 https://live1.sscloud7.com/live/smileytv/index.m3u8
 #EXTINF:-1 tvg-name="vaani tv" tvg-logo="1749032751_vaani bbb.png" group-title="Tamil Nadu",vaani tv
 rtmp://vaanivisuals.in:1935/vaanitv/vaanitv
-#EXTINF:-1 tvg-name="JAYAM TV SIVAKASI" tvg-logo="1756047174_Jayam Tv Logo.png" group-title="Tamil Nadu",JAYAM TV SIVAKASI
-https://app.ashokadigital.net/app/db285ebc/index.m3u8
 #EXTINF:-1 tvg-name="YET TELIVISION" tvg-logo="1752314659_Y2.png" group-title="Tamil Nadu",YET TELIVISION
 https://live.yettelevision.com:5443/LiveApp/streams/yettv.m3u8
 #EXTINF:-1 tvg-name="Royal Tv" tvg-logo="1755167511_IMG_20240510_111038_597.png" group-title="Tamil Nadu",Royal Tv
@@ -375,6 +371,10 @@ http://stream.onecloudlive.in/santhiyatv/santhiyatvhd/index.m3u8
 rtmp://nextgeninfotech.ddns.net:9090/leaf/leaf?psk=123456
 #EXTINF:-1 tvg-name="Arram Tv" tvg-logo="1733831106_IMG-20241210-WA0197.jpg" group-title="Tamil Nadu",Arram Tv
 http://hdstreambox.in:1935/Arramtv/livetv/playlist.m3u8
+#EXTINF:-1 tvg-name="Surya Tv" tvg-logo="1732170490_WhatsApp_Image_2024-11-21_at_11.10.20_AM-removebg-preview (2).png" group-title="Tamil Nadu",Surya Tv
+https://galaxyott.live/hls/suryatv.m3u8
+#EXTINF:-1 tvg-name="JAYAM TV SIVAKASI" tvg-logo="1756047174_Jayam Tv Logo.png" group-title="Tamil Nadu",JAYAM TV SIVAKASI
+https://app.ashokadigital.net/app/db285ebc/index.m3u8
 #EXTINF:-1 tvg-name="Boys malayalam" tvg-logo="1749716942_plus.png" group-title="Tamil Nadu",Boys malayalam
 rtmp://rtmp.applelive.in:1935/acptv/acptv
 #EXTINF:-1 tvg-name="Boys comedy" tvg-logo="1749716969_Comedy.png" group-title="Tamil Nadu",Boys comedy
