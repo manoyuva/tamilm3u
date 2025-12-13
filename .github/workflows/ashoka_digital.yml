@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir -p data
           curl -L \
-            "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=300&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C" \
+            "https://livetv.ashokadigital.net/api/api.php?get_posts=&page=1&count=30000&api_key=cda11bx8aITlKsXdsfafadskljasldfjoierKLrteaadfjalM%3C" \
             -o json/ashoka_digital.json
 
       - name: Validate JSON (optional)
