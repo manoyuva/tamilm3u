@@ -1,4 +1,4 @@
-name: M3U to JSON Converter
+name: Zee5 m3u to json
 
 on:
   workflow_dispatch:
