@@ -1,0 +1,30 @@
+name: z5 Gee sports
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"   # every 6 hours
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download M3U playlist
+        run: |
+          mkdir -p playlist
+          curl -L \
+            https://raw.githubusercontent.com/alex8875/m3u/refs/heads/main/z5.m3u \
+            -o playlist/z5.m3u
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add playlist/z5.m3u
+          git commit -m "Auto update z5.m3u" || echo "No changes"
+          git push
+          
