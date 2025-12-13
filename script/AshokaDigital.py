@@ -31,7 +31,7 @@ for ch in posts:
 
     lines.append(
         f'#EXTINF:-1 tvg-name="{name}" '
-        f'tvg-logo="{logo}" '
+        f'tvg-logo="https://www.ashokadigital.net/_next/image?url=https://livetv.ashokadigital.net/upload/logo/{logo}&w=1920&q=75" '
         f'group-title="{group}",{name}'
     )
     lines.append(url)
