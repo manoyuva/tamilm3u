@@ -1,9 +1,9 @@
-name: JSON to M3U
+name: Tamil Ott Apk Json to m3u
 
 on:
   push:
     paths:
-      - "channels.json"
+      - "json/tamilott.json"
   workflow_dispatch:
 
 jobs:
@@ -20,12 +20,12 @@ jobs:
           python-version: "3.11"
 
       - name: Convert JSON to M3U
-        run: python jsonm3u.py
+        run: python tamilottm3u.py
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add output.m3u
+          git add playlist/tamilott.m3u
           git commit -m "Auto update M3U from JSON" || echo "No changes"
           git push
