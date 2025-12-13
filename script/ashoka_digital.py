@@ -38,7 +38,7 @@ with open(OUTPUT_M3U, "w", encoding="utf-8") as m3u:
 
         m3u.write(
             f'#EXTINF:-1 tvg-name="{name}" '
-            f'tvg-logo="{logo}" '
+            f'tvg-logo=https://www.ashokadigital.net/_next/image?url=https://livetv.ashokadigital.net/upload/logo/"{logo}"&w=1920&q=75'
             f'group-title="{group}",{name}\n'
         )
         m3u.write(f'{url}{ext_opts}\n')
